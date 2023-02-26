@@ -1,0 +1,20 @@
+version: '3.8'
+services:
+  api:
+    build: ./api
+    container_name: test_task_backend
+    ports:
+      - '5000:5000'
+    volumes:
+    - ${WORKER_DIR}/api:${HOME}/api
+    - /dev/null/:/api/node_modules/bcrypt/
+  client:
+    build: ./client
+    container_name: test_task_frontend
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./client:/app
+      - ./api:/node_modules
+    stdin_open: true
+    tty: true
